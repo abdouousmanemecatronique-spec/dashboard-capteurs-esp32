@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Supervision IoT — Température & Humidité (ESP32)</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>Supervision & Analyse des Capteurs (ESP32)</h1>
+        <p class="subtitle" id="channel-info">Connexion au canal ThingSpeak...</p>
+      </div>
+      <div class="header-actions">
+        <span id="status-badge" class="badge">En attente...</span>
+        <button id="btn-simuler" class="btn-secondary">Simuler données</button>
+        <button id="btn-refresh" class="btn-secondary">Actualiser</button>
+        <button id="btn-export" class="btn-primary">Exporter CSV</button>
+      </div>
+    </header>
+
+    <!-- 2 Cartes KPI adaptées à votre canal (Température & Humidité) -->
+    <section class="kpi-grid">
+      <article class="card" id="card-1">
+        <div class="card-header">
+          <span id="name-1">Température (°C)</span>
+          <span class="alert-tag" id="alert-1">ALERTE &gt; 30 °C</span>
+        </div>
+        <div class="kpi-value" id="val-1">-- °C</div>
+        <div class="stats-row" id="stats-1">Min: -- | Moy: -- | Max: --</div>
+      </article>
+
+      <article class="card" id="card-2">
+        <div class="card-header">
+          <span id="name-2">Humidité (%)</span>
+          <span class="alert-tag" id="alert-2">ALERTE &gt; 80 %</span>
+        </div>
+        <div class="kpi-value" id="val-2">-- %</div>
+        <div class="stats-row" id="stats-2">Min: -- | Moy: -- | Max: --</div>
+      </article>
+    </section>
+
+    <!-- Graphique temporel -->
+    <section class="panel">
+      <div class="panel-header">
+        <h2>Évolution temporelle (Température & Humidité)</h2>
+        <select id="points-select">
+          <option value="15">15 dernières mesures</option>
+          <option value="30" selected>30 dernières mesures</option>
+          <option value="60">60 dernières mesures</option>
+        </select>
+      </div>
+      <canvas id="sensorChart" height="90"></canvas>
+    </section>
+
+    <!-- Tableau récapitulatif des derniers relevés -->
+    <section class="panel">
+      <h2>Historique récent des relevés</h2>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Date & Heure</th>
+              <th id="th-1">Température (°C)</th>
+              <th id="th-2">Humidité (%)</th>
+              <th>État</th>
+            </tr>
+          </thead>
+          <tbody id="table-body">
+            <tr><td colspan="4">En attente de mesures de l'ESP32...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
